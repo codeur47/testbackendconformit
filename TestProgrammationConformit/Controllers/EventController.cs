@@ -27,5 +27,6 @@ namespace TestProgrammationConformit.Controllers
         {
             return Ok(_eventService.GetAllEvents());
         }
+
     }
 }

@@ -13,6 +13,8 @@ namespace TestProgrammationConformit.Profiles
         public CommentProfile()
         {
             CreateMap<Comment, CommentReadDTO>();
+            CreateMap<CommentCreateDTO, Comment>();
+            CreateMap<CommentUpdateDTO, Comment>();
         }
     }
 }
