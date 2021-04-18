@@ -11,6 +11,6 @@ namespace TestProgrammationConformit.Services
     {
         bool SaveChanges();
 
-        IEnumerable<EventReadDTO> GetAllCommands();
+        IEnumerable<EventReadDTO> GetAllEvents();
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestProgrammationConformit.Dtos;
+using TestProgrammationConformit.Models;
 
 namespace TestProgrammationConformit.Dtos
 {
