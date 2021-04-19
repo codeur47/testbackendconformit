@@ -13,6 +13,8 @@ namespace TestProgrammationConformit.Profiles
         public EventProfile()
         {
             CreateMap<Event, EventReadDTO>();
+            CreateMap<EventCreateDTO, Event>();
+            CreateMap<EventUpdateDTO, Event>();
         }
     }
 }

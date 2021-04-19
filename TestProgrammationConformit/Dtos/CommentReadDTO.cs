@@ -13,6 +13,6 @@ namespace TestProgrammationConformit.Dtos
 
         public DateTime Date { get; set; }
 
-        public int EventFK { get; set; }
+        public int EventId { get; set; }
     }
 }

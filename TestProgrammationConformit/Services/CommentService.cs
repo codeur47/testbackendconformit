@@ -11,27 +11,21 @@ namespace TestProgrammationConformit.Services
 {
     public class CommentService : ICommentService
     {
-
         private readonly ConformitContext _conformitContext;
-        private readonly IMapper _mapper;
 
-        public CommentService(ConformitContext conformitContext, IMapper mapper)
+        public CommentService(ConformitContext conformitContext)
         {
             _conformitContext = conformitContext;
-            _mapper = mapper;
         }
 
-        public CommentReadDTO CreateComment(CommentCreateDTO commentCreateDTO)
+        public void CreateComment(Comment comment)
         {
-            if (commentCreateDTO == null)
-                throw new ArgumentNullException(nameof(commentCreateDTO));
+            if (comment == null)
+            {
+                throw new ArgumentNullException(nameof(comment));
+            }
 
-            var comment = _mapper.Map<Comment>(commentCreateDTO);
-            _conformitContext.Add(comment);
-            SaveChanges();
-            if (SaveChanges())
-                return _mapper.Map<CommentReadDTO>(comment);
-            throw new Exception("Failed to save data");     
+            _conformitContext.Comment.Add(comment);
         }
 
         public void DeleteComment(int id)
@@ -40,29 +34,26 @@ namespace TestProgrammationConformit.Services
             SaveChanges();
         }
 
-        public IEnumerable<CommentReadDTO> GetAllComments()
+        public IEnumerable<Comment> GetAllComments()
         {
-            return _mapper.Map<IEnumerable<CommentReadDTO>>(_conformitContext.Comment.ToList());
+            return _conformitContext.Comment.ToList();
         }
 
-        public CommentReadDTO GetCommentById(int id)
+        public Comment GetCommentById(int id)
         {
-            return _mapper.Map<CommentReadDTO>(_conformitContext.Comment.FirstOrDefault(c => c.CommentId == id));
+            return _conformitContext.Comment.FirstOrDefault(c => c.CommentId == id);
         }
 
-        public void UpdateComment(CommentUpdateDTO commentUpdateDTO, int id)
-        {
-            var comment = _conformitContext.Comment.FirstOrDefault(c => c.CommentId == id);
-            comment.Date = commentUpdateDTO.Date;
-            comment.EventFK = commentUpdateDTO.EventFK;
-            comment.Title = commentUpdateDTO.Title;
-            _conformitContext.Update(comment);
-            SaveChanges();
-        }
+        
 
         public bool SaveChanges()
         {
             return (_conformitContext.SaveChanges() >= 0);
+        }
+
+        public void UpdateComment(Comment comment)
+        {
+            throw new NotImplementedException();
         }
     }
 }

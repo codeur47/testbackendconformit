@@ -19,7 +19,7 @@ namespace TestProgrammationConformit.Models
         [Required]
         public DateTime Date { get; set; }
 
-        public int EventFK { get; set; }
+        public int EventId { get; set; }
 
         public Event Event { get; set; }
     }

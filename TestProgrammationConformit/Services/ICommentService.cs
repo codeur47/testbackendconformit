@@ -11,10 +11,10 @@ namespace TestProgrammationConformit.Services
     {
         bool SaveChanges();
 
-        CommentReadDTO GetCommentById(int id);
-        IEnumerable<CommentReadDTO> GetAllComments();
-        CommentReadDTO CreateComment(CommentCreateDTO commentCreateDTO);
-        void UpdateComment(CommentUpdateDTO commentUpdateDTO, int id);
+        Comment GetCommentById(int id);
+        IEnumerable<Comment> GetAllComments();
+        void CreateComment(Comment comment);
+        void UpdateComment(Comment comment);
         void DeleteComment(int id);
     }
 }

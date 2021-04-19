@@ -12,16 +12,6 @@ namespace TestProgrammationConformit.Infrastructures
         public ConformitContext(DbContextOptions options) : base(options)
         {
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Event)
-                .WithMany(e => e.Comments)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey(c => c.EventFK);  
-        }
     
 
         public DbSet<Event> Event { get; set; }

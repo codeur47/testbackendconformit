@@ -17,7 +17,7 @@ namespace TestProgrammationConformit.Dtos
         [Required]
         public DateTime Date { get; set; }
 
-        public int EventFK { get; set; }
+        public int EventId { get; set; }
 
     }
 }

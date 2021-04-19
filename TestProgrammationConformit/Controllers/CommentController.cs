@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using TestProgrammationConformit.Services;
 using TestProgrammationConformit.Dtos;
+using AutoMapper;
+using TestProgrammationConformit.Models;
 
 namespace TestProgrammationConformit.Controllers
 {
@@ -15,18 +17,21 @@ namespace TestProgrammationConformit.Controllers
     {
 
         private readonly ICommentService _commentService;
+        private readonly IMapper _mapper;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService, IMapper mapper)
         {
             _commentService = commentService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}", Name = "GetCommentById")]
         public ActionResult<CommentReadDTO> GetCommentById(int id)
         {
-            if (_commentService.GetCommentById(id) != null)
+            var commentItem = _commentService.GetCommentById(id);
+            if (commentItem != null)
             {
-                return Ok(_commentService.GetCommentById(id));
+                return Ok(_mapper.Map<CommentReadDTO>(commentItem));
             }
             return NotFound();
         }
@@ -34,29 +39,39 @@ namespace TestProgrammationConformit.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CommentReadDTO>> GetAllComments()
         {
-            return Ok(_commentService.GetAllComments());
+            var commentItems = _commentService.GetAllComments();
+            return Ok(_mapper.Map<IEnumerable<CommentReadDTO>>(commentItems));
         }
 
         [HttpPost]
         public ActionResult<CommentReadDTO> CreateComment(CommentCreateDTO commentCreateDTO)
         {
-            var commentReadDto = _commentService.CreateComment(commentCreateDTO);
+            var commentModel = _mapper.Map<Comment>(commentCreateDTO);
+
+            _commentService.CreateComment(commentModel);
+            _commentService.SaveChanges();
+
+            var commentReadDto = _mapper.Map<CommentReadDTO>(commentModel);
+
             return CreatedAtRoute(nameof(GetCommentById), new { Id = commentReadDto.CommentId }, commentReadDto);
         }
 
         [HttpPut("{id}")]
         public ActionResult UpdateComment(int id, CommentUpdateDTO commentUpdateDTO)
         {
-
             var comment = _commentService.GetCommentById(id);
             if (comment == null)
             {
                 return NotFound();
             }
+            _mapper.Map(commentUpdateDTO, comment);
 
-            _commentService.UpdateComment(commentUpdateDTO, id);
+            _commentService.UpdateComment(comment);
+
+            _commentService.SaveChanges();
 
             return NoContent();
+
         }
 
         [HttpDelete("{id}")]
@@ -68,6 +83,7 @@ namespace TestProgrammationConformit.Controllers
                 return NotFound();
             }
             _commentService.DeleteComment(id);
+            _commentService.SaveChanges();
 
             return NoContent();
         }
