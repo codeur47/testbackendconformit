@@ -9,7 +9,7 @@ namespace TestProgrammationConformit.Dtos
     {
         public int CommentId { get; set; }
 
-        public string Title { get; set; }
+        public string Description { get; set; }
 
         public DateTime Date { get; set; }
 

@@ -14,7 +14,7 @@ namespace TestProgrammationConformit.Models
         public int CommentId { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
