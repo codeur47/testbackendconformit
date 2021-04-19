@@ -12,3 +12,14 @@ Un commentaire est constitué d'une description et d'une date et est obligatoire
 
 #Fournis :
 	Projet de base sans controlleur avec Context (complet + migration auto) et docker de setup avec un postgresql
+
+#Possibilité pour des plus : 
+	- Tests unitaires
+		
+#S'attendre à  :
+	- Pas tout le code dans le controlleur
+	- Plusieurs models avec les clefs
+	- parametres dans les routes
+	- dto ?
+	- Linq
+	- Gestion d'erreur
